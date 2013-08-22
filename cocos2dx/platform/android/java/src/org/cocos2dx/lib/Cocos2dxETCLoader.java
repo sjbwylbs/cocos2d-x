@@ -64,11 +64,19 @@ public class Cocos2dxETCLoader {
 			}
 			
 			texture = ETC1Util.createTexture(inputStream);
-			inputStream.close();
 		} catch (Exception e) {
 			Log.d("Cocos2dx", "Unable to create texture for " + filePath);
 			
 			texture = null;
+		}finally{
+			if(inputStream!=null){
+				try {
+		                	inputStream.close();
+		                	inputStream = null;
+	                	} catch (IOException e) {
+		                	Log.d("Cocos2dx", "Closing texture file error for " + filePath);
+	                	}
+			}
 		}
 		
 		if (texture != null) {
